@@ -1,0 +1,5 @@
+docker images
+REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
+crisscuola/ubuntu-tmp-file   latest              f9a0e3bb337b        14 seconds ago      116MB
+ubuntu                       16.04               a51debf7e1eb        45 hours ago        116MB
+hello-world                  latest              4ab4c602aa5e        2 months ago        1.84kB
