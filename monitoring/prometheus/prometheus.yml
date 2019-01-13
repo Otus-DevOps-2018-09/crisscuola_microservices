@@ -2,6 +2,16 @@
 global:
   scrape_interval: '5s'
 
+rule_files:
+  - "alerts.yml"
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "alertmanager:9093"
+
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
@@ -26,19 +36,9 @@ scrape_configs:
   - job_name: 'cadvisor'
     static_configs:
       - targets:
-      - 'cadvisor:8080'
+        - 'cadvisor:8080'
 
   - job_name: 'post'
     static_configs:
       - targets:
-      - 'post:5000'
-
-rule_files:
-  - "alerts.yml"
-
-alerting:
-  alertmanagers:
-  - scheme: http
-    static_configs:
-    - targets:
-      - "alertmanager:9093"
+          - 'post:5000'
