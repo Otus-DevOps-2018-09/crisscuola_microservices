@@ -18,8 +18,8 @@ services:
     logging:
       driver: "fluentd"
       options:
-      fluentd-address: localhost:24224
-      tag: service.ui
+        fluentd-address: localhost:24224
+        tag: service.ui
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
   post:
