@@ -15,13 +15,36 @@ services:
       - ${UI_SERVICE_PORT}:9292/tcp
     networks:
       - frontend
+    logging:
+      driver: "fluentd"
+      options:
+      fluentd-address: localhost:24224
+      tag: service.ui
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
   post:
     image: ${USER_NAME}/post:${POST_SERVICE_VERSION}
     networks:
-      - backend
-      - frontend
+    - backend
+    - frontend
+    environment:
+      - POST_DATABASE_HOST=post_db
+      - POST_DATABASE=posts
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+    - post_db
+    ports:
+    - "5000:5000"
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
+
   comment:
     image: ${USER_NAME}/comment:${COMMENT_SERVICE_VERSION}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
       - backend
       - frontend
